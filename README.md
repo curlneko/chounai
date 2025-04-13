@@ -10,6 +10,16 @@ npx tsc --init
 npm install bcrypt jsonwebtoken cookie-parser dotenv
 npm install -D typescript ts-node @types/node @types/express @types/bcrypt @types/jsonwebtoken @types/cookie-parser
 
+# Prisma関連コマンド
+npm install prisma --save-dev
+npm install @prisma/client
+### 初期化
+npx prisma init
+### モデルを書いたらマイグレーションしてDBに反映（この時にgenerateもされる）
+npx prisma migrate dev --name init
+### schemaだけ変更したけどDBはいじらない場合（例：ちょっとしたフィールド名修正など）
+npx prisma generate
+
 # Docker関連コマンド
 ## 修正済みの設定で再起動
 docker-compose up -d
@@ -31,12 +41,14 @@ npm run dev
 src/
 ├── controllers/（ルートに対応する処理（コントローラー）を書く場所）
 ├── middleware/（リクエストとレスポンスの間に挟む処理）
-├── models/（データ構造やORM（DBモデル）の定義）
+├── lib/prisma（データ構造やORMの定義（自動生成））
 ├── routes/（エンドポイントとコントローラーの対応づけ）
 ├── services/（ビジネスロジックを書く場所）
 ├── utils/（汎用的な関数・ユーティリティ置き場）
 ├── types/（TypeScript型定義）
 └── index.ts（エントリーポイント）
+prisma/
+  └─ schema.prisma（Prismaのモデルを編集する場所）
 .env（環境変数）
 
 # 機能
