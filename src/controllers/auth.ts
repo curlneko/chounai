@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
-import * as authService from "../services/authService";
+import * as auth from "../services/auth";
 
 export const login = async (req: Request, res: Response) => {
   const { username, password } = req.body;
 
-  const token = await authService.authenticateUser(username, password);
+  const token = await auth.authenticateUser(username, password);
   if (token) {
     res.json({ token });
   } else {
@@ -18,12 +18,12 @@ export const signup = async (req: Request, res: Response) => {
     res.status(400).json({ message: "メールとパスワードは必須です。" });
   }
 
-  const existingUSer = await authService.findUserByUsername(username);
+  const existingUSer = await auth.findUserByUsername(username);
   if (existingUSer) {
     res.status(409).json({ message: "すでに登録されています。" });
   }
 
-  const token = await authService.createUser(username, password);
+  const token = await auth.createUser(username, password);
 
   res.status(201).json({ token });
 };
