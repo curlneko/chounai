@@ -28,6 +28,15 @@ export const signup = async (req: Request, res: Response) => {
   res.status(201).json({ token });
 };
 
+export const logout = async (req: Request, res: Response) => {
+  // "Bearer token" 形式でトークンを取得
+  const token = req.header("Authorization")?.split(" ")[1] || "";
+
+  await auth.logout(token);
+
+  res.status(200).json({ message: "ログアウトしました！" });
+};
+
 export const protectedRoute = async (req: Request, res: Response) => {
   res.json({ message: "This is protected data" });
 };
