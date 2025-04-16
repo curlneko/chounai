@@ -10,6 +10,9 @@ npx tsc --init
 npm install bcrypt jsonwebtoken cookie-parser dotenv
 npm install -D typescript ts-node @types/node @types/express @types/bcrypt @types/jsonwebtoken @types/cookie-parser
 
+npm install winston morgan
+npm install -D @types/morgan
+
 # Prisma関連コマンド
 npm install prisma --save-dev
 npm install @prisma/client
@@ -52,4 +55,8 @@ prisma/
 .env（環境変数）
 
 # 機能
-ログイン/ログアウト/サインアップ：JWT + セッション方式
+### ログイン/ログアウト/サインアップ
+JWT + セッション方式
+
+### ログ出力
+winston + morgan
