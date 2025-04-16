@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 // 全てのリクエストでトークン検査を行う
-app.use(authenticateToken);
+// app.use(authenticateToken);
 
 app.use("/auth", authRoutes);
 
