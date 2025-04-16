@@ -1,7 +1,7 @@
 import express, { Request, Response } from "express";
 import dotenv from "dotenv";
 import authRoutes from "./routes/auth";
-import { authenticateToken } from "./middleware/authMiddleware";
+import { authenticateToken } from "./middleware/auth";
 
 // 環境変数読み込む
 dotenv.config();
