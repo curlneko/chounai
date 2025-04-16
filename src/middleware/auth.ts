@@ -8,12 +8,14 @@ export const authenticateToken = (
 ): void => {
   // "Bearer token" 形式でトークンを取得
   const token = req.header("Authorization")?.split(" ")[1];
-  const isLoginPath = req.path === "/auth/login";
+
+  const isLogin = req.path === "/auth/login";
+  const isSignup = req.path === "/auth/sighup";
 
   // トークンがない場合
   if (!token) {
-    // ログインしたい人の場合はログイン処理をさせる
-    if (isLoginPath) {
+    // ログインかサインアップしたい人の場合はログイン処理をさせる
+    if (isLogin || isSignup) {
       next();
       return;
     } else {
@@ -32,8 +34,8 @@ export const authenticateToken = (
     }
     (req as any).user = user; // ユーザー情報をリクエストに追加
 
-    // トークンがあってログインパスに来た → ホームへリダイレクト
-    if (isLoginPath) {
+    // トークンがあるが、ログインかサインアップが来た → ホームへリダイレクト
+    if (isLogin || isSignup) {
       res.status(302).redirect("/");
       return;
     }
