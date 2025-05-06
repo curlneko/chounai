@@ -15,11 +15,14 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  username  String    @unique
-  password  String
-  createdAt DateTime  @default(now())
-  Session   Session[]
+  id          Int           @id @default(autoincrement())
+  name        String        @unique
+  password    String
+  email       String        @unique
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  Session     Session[]
+  Reservation Reservation[]
 }
 
 model Session {
@@ -29,4 +32,27 @@ model Session {
   user      User     @relation(fields: [userId], references: [id])
   createdAt DateTime @default(now())
   expiresAt DateTime
+}
+
+model Room {
+  id           Int           @id @default(autoincrement())
+  name         String
+  capacity     Int
+  reservations Reservation[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+model Reservation {
+  id        Int      @id @default(autoincrement())
+  user      User     @relation(fields: [userId], references: [id])
+  userId    Int
+  Room      Room?    @relation(fields: [roomId], references: [id])
+  roomId    Int
+  startTime DateTime
+  endTime   DateTime
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([roomId, startTime]) // 同じ部屋・時間の重複を防ぐ
 }
