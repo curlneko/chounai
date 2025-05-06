@@ -22,6 +22,8 @@ npx prisma init
 npx prisma migrate dev --name init
 ### schemaだけ変更したけどDBはいじらない場合（例：ちょっとしたフィールド名修正など）
 npx prisma generate
+### reset
+npx prisma migrate reset
 
 # Docker関連コマンド
 ## 修正済みの設定で再起動
